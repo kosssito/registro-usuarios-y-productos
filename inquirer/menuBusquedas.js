@@ -1,59 +1,39 @@
 require('colors');
-const inquirer = require('inquirer');
 const Usuario = require('../models/usuarios');
-const { pausa, input, dataBaseFind } = require('../helpers/inquirer');
+const { pausa, input, crearMenu } = require('../helpers/inquirer');
 const { loging } = require('../controllers/registroUsuarios');
-const { headerBusquedasUsuarios } = require('../helpers/menus');
+const { headerBusquedasUsuarios } = require('../helpers/heders');
+const { dataBaseFind } = require('../helpers/busquedas');
 
-let opt
-const menuBusquedasGenerico = async (opciones)=>{
 
-const choices = opciones.map((element, index)=>{
-    const idx = index + 1;
+const menuBusquedas = async()=>{
 
-    return {
-        value: element[1],
-        name: `${`${idx}.`.yellow} ${element[0]}`
-    }
-})
+    const menuOpciones = [
+        ['Buscar por nombre', findName ],
+        ['Buscar por email', findEmail],
+        ['Buscar por numero', findNumero],
+        ['Mostrar usuarios registrados', findAll]
+        ]
 
-choices.push({
-    value: false,
-    name: `${'0.'.yellow} Salir` 
-})
-
-const menu = async ()=>{
-    headerBusquedasUsuarios();
-      const {opcionB} = await inquirer.prompt([{
-        type: 'list',
-        name: 'opcionB',
-        message: 'Seleccione una opcion'.yellow,
-        choices 
-    }
-])
-    return opcionB;
+    await crearMenu(menuOpciones, ['yellow'],headerBusquedasUsuarios);
 }
 
-const find = async(parametro)=>{
-    if(parametro == 'allUsers'){
-        if(await loging() == true){
-        const data = await dataBaseFind(Usuario,'allUsers');
-        const data2 = await dataTabuladaG(data);
-        headerBusquedasUsuarios();
-        console.table(data2)
-        }
-        await pausa();
-    }else{
-     headerBusquedasUsuarios();
-     const entrada = await input(`Ingrese el ${parametro} del usuario a buscar\n`, 'input');
-     const data = await dataBaseFind(Usuario, parametro ,entrada );
-    console.table(dataTabulada(data)); 
-    await pausa();   
-    }
+const findName = async()=>{
+   await buscar('nombre')
+}
+const findEmail = async()=>{
+    await buscar('email')
+ }
+ const findNumero = async()=>{
+    await buscar('numero')
+ }
+ const findAll = async()=>{
+    await buscar('allFind')
+ }
+
+const buscar = async(parametro)=>{
     
-}
-
-const dataTabulada = (data)=>{
+    const dataTabulada = (data)=>{
     if(data.length === 0){
         return ('No exite en base de datos');
         
@@ -73,26 +53,24 @@ const dataTabuladaG = async(data)=>{
         numero: e.numero
     }));
 }  
-    do {
-        opt = await menu();
-        if(opt ){
-            await find(opt);
+
+    if(parametro == 'allFind'){
+        if(await loging() == true){
+        const data = await dataBaseFind(Usuario,'allFind');
+        const data2 = await dataTabuladaG(data);
+        headerBusquedasUsuarios();
+        console.table(data2)
         }
-    } while (opt);
+        await pausa();
+    }else{
+     headerBusquedasUsuarios();
+     const entrada = await input(`Ingrese el ${parametro} del usuario a buscar\n`, 'input');
+     const data = await dataBaseFind(Usuario, parametro ,entrada );
+    console.table(dataTabulada(data)); 
+    await pausa();
+    }
+    
 }
-
-const menuOpciones = [
-    ['Buscar por nombre', 'nombre'],
-    ['Buscar por email', 'email'],
-    ['Buscar por numero', 'numero'],
-    [ 'Mostrar usuarios registrados', 'allUsers']
-]
-
-const menuBusquedas = async ()=>{
-await menuBusquedasGenerico(menuOpciones)
-}
-
-
 
 module.exports = {
     menuBusquedas

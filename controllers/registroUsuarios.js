@@ -1,15 +1,13 @@
-require("colors");
 const Usuario = require("../models/usuarios");
-const { pausa, input, dataBaseFind } = require("../helpers/inquirer");
+const { pausa, input } = require("../helpers/inquirer");
 const { validarEmail } = require("../helpers/validar-email");
-const { modificarUsuario, borarUsuario } = require("./busquedas");
-const { headerRegistroUsuarios, headerLoging } = require("../helpers/menus");
+const { headerRegistroUsuarios, headerLoging } = require("../helpers/heders");
+const { dataBaseFind } = require("../helpers/busquedas");
 
 const crear = async () => {
   headerRegistroUsuarios();
   const nombre = await input("Ingrese el nombre del usuario\n", "input");
   if ((await dataBaseFind(Usuario,"nombre", nombre, true, true)) == false) {
-    console.log("paso");
     headerRegistroUsuarios();
     const email = await input("Ingrese su Email\n", "input");
     if ((await dataBaseFind(Usuario,"email", email, true, true)) == false) {
@@ -79,6 +77,7 @@ const crearUsuarios = async () => {
       console.log(error);
     }
   }
+  await pausa();
 };
 
 const modificarUsuarios = async () => {
@@ -103,12 +102,13 @@ const modificarUsuarios = async () => {
     } else {
       const usuario = await crear();
       headerRegistroUsuarios();
-      await modificarUsuario(rData[0]._id.toString(), usuario);
+      await Usuario.findByIdAndUpdate(rData[0]._id.toString(), usuario);
       console.log(
         `${"Usuario".cyan} ${rData[0].nombre} ${"Modificado!!!".cyan}`
       );
     }
   }
+  await pausa();
 };
 const borrarUsuarios = async () => {
   headerRegistroUsuarios();
@@ -131,10 +131,11 @@ const borrarUsuarios = async () => {
       console.log("La contraseña es incorrecta");
     } else {
       headerRegistroUsuarios();
-      await borarUsuario(rData[0]._id.toString());
+      await Usuario.findByIdAndDelete(rData[0]._id.toString());
       console.log(`${"Usuario".cyan} ${rData[0].nombre} ${"Borrado!!!".cyan}`);
     }
   }
+  await pausa();
 };
 
 const loging = async () => {

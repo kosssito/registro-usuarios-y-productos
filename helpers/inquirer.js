@@ -1,7 +1,5 @@
 const inquirer = require('inquirer');
-require('colors');
-
-
+const color = require('colors');
 
 const pausa = async() => {
 
@@ -29,48 +27,54 @@ const input = async(message ,type = 'input')=>{
     
 }
 
-const dataBaseFind = async (Clase ,parametro, value, validator = false, log = false, )=>{
-
-    const buscar = async(paramFind, value)=>{
+const crearMenu = async(arrOption, custom, heders)=>{
+    let opt
+    color.setTheme({
+        custom
+    });
+const crearOpciones = arrOption.map((element, index)=>{
+        idx = index+1
         
-       const existe =  await Clase.find(paramFind)
-       if(validator){
+        return {
+            value: element[1],
+            name: `${`${idx}.`.custom} ${element[0]}`
+        }
+    })
 
-           if( existe.length !== 0){
-               if(log){
-   
-                   console.log(`${value} ya registrado!!!`);
-               }
-               return true;
-           }else{
-               return false
-           }     
-       }else{
-           return existe;
-       }
-   };
-   
-const buscarUsuarios = async ()=>{
+    crearOpciones.push({
+        value: false,
+        name: `${'0.'.custom} Salir`
+        
+    })
 
-    return await Clase.find().lean();
-  }
+    const menu = async()=>{
+        heders();
+        const {opcion} = await inquirer.prompt([
+            {
+                type: 'list',
+                name: 'opcion',
+                message: 'Seleccione Una Opcion'.custom,
+                choices: crearOpciones
+            }
+        ]);
+        
+        return opcion;
+    }
 
- const findOptions = {
-     nombre: await buscar({nombre: value }, 'nombre'),
-     email: await buscar({email: value }, 'email'),
-     numero: await buscar({numero: value }, 'numero'),
-     allUsers: await buscarUsuarios(),
- }
-
- const find = findOptions[parametro] 
- return find
-
-
+    do {
+        
+        color.setTheme({
+        custom
+       });
+        opt = await menu();
+        if(opt){
+            await opt();
+        }
+    } while (opt);    
 }
 
-    
 module.exports = {
     pausa,
     input,
-    dataBaseFind
+    crearMenu
 }
