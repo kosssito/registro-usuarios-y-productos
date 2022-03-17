@@ -1,4 +1,4 @@
-
+const color = require('colors');
 const headerRegistroUsuarios = ()=>{
     
     console.clear();     
@@ -15,12 +15,14 @@ const headerBusquedasUsuarios = ()=>{
     console.log('╚══════════════════════╝'.yellow);
 }
 
-const headerLoging = ()=>{
-    
+const headerLoging = (logingColor = ['yellow'])=>{
+    color.setTheme({
+        logingColor
+    })
     console.clear();     
-    console.log('╔══════════════════════╗'.yellow);
-    console.log('       LOGING'.yellow);
-    console.log('╚══════════════════════╝'.yellow);
+    console.log('╔══════════════════════╗'.logingColor);
+    console.log('       LOGING'.logingColor);
+    console.log('╚══════════════════════╝'.logingColor);
 }
 
 const headerInventario = ()=>{

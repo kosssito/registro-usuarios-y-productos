@@ -1,9 +1,22 @@
 const {Schema, model} = require('mongoose');
 
-const CategoriaSchema = Schema({
+const CategoriaSchema = new Schema({
     nombre: {
         type: String,
         required: [true, 'El nombre es obligatorio'],
+        unique: true,
+        uppercase: true
         
+    },
+    usuario: {
+        type: Schema.Types.ObjectId,
+        ref: 'Usuario',
+        required: true
     }
+},
+{
+    timeseries: true,
+    versionKey: false
 })
+
+module.exports = model('Categoria', CategoriaSchema)

@@ -1,3 +1,4 @@
+const Categoria = require('../models/categorias');
 const Usuario = require('../models/usuarios');
 
 const dataBaseFind = async (Clase ,parametro, value, validator = false, log = false, )=>{
@@ -35,6 +36,18 @@ if (Clase == Usuario){
     }
     return findOptions[parametro] 
 }
+
+if (Clase == Categoria){
+
+    const findOptions = {
+        nombre: await buscar({nombre: value }, 'Categoria'),
+        // email: await buscar({email: value }, 'email'),
+        // numero: await buscar({numero: value }, 'numero'),
+        // allFind: await buscarUsuarios(),
+    }
+    return findOptions[parametro] 
+}
+
 
  
 }

@@ -138,22 +138,22 @@ const borrarUsuarios = async () => {
   await pausa();
 };
 
-const loging = async () => {
-  headerLoging();
+const loging = async (color) => {
+  headerLoging(color);
   const correo = await input("Ingrse su correo\n", "input");
   const rData = await dataBaseFind(Usuario,"email", correo);
   if (rData.length == 0) {
-    headerLoging();
+    headerLoging(color);
     console.log("No exite ese correo en base de datos");
   } else {
-    headerLoging();
+    headerLoging(color);
     const password = await input("Ingrese su contraseña\n", "password");
     if (rData[0].password !== password) {
-      headerLoging();
+      headerLoging(color);
       console.log("La contraseña es incorrecta");
       return false;
     } else {
-      return true;
+      return rData;
     }
   }
 };
