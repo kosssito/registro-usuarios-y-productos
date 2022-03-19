@@ -27,7 +27,7 @@ const input = async(message ,type = 'input')=>{
     
 }
 
-const crearMenu = async(arrOption, custom, heders)=>{
+const crearMenu = async(arrOption, custom, heders, r = false)=>{
     let opt
     color.setTheme({
         custom
@@ -60,8 +60,11 @@ const crearOpciones = arrOption.map((element, index)=>{
         
         return opcion;
     }
-
-    do {
+    if(r){
+        opt =  await menu();
+        return opt;
+    }else{
+        do {
         
         color.setTheme({
         custom
@@ -70,7 +73,8 @@ const crearOpciones = arrOption.map((element, index)=>{
         if(opt){
             await opt();
         }
-    } while (opt);    
+        } while (opt);    
+    }
 }
 
 module.exports = {

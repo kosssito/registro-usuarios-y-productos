@@ -34,5 +34,5 @@ const productosSchema = new Schema({
     versionKey: false
 })
 
-module.exports = model('Productos', productosSchema )
+module.exports = model('Producto', productosSchema )
 
