@@ -48,12 +48,13 @@ const crearCategoria = async()=>{
         confirmar = input('¿La infomacion es correcta?\n', 'confirm')
         if (confirmar){
          await Producto.create(dataProducto);
+         console.log( `Producto ${nombreProducto} creado !!!!`)
         }
       }
     }
 
 
-    console.log('creando producto!!');
+   
     await pausa();
   }
   const mostrarInventario = async()=>{

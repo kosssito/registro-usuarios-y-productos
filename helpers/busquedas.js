@@ -6,7 +6,7 @@ const dataBaseFind = async (Clase ,parametro, value, validator = false, log = fa
 
     const buscar = async(paramFind, value)=>{
         
-       const existe =  await Clase.find(paramFind)
+       const existe =  await Clase.find(paramFind).lean();
        if(validator){
 
            if( existe.length !== 0){
