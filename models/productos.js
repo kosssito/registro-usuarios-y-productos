@@ -3,21 +3,23 @@ const {model, Schema} = require('mongoose');
 const productosSchema = new Schema({
     nombre: {
         type: String,
-        required: true
+        required: true,
+        unique: true,
+        uppercase: true
     },
     estado:{
         type: Boolean,
         default: true,
         required: true
     },
-    usuarios:{
+    usuario:{
         type: Schema.Types.ObjectId,
         ref: 'Usuario',
         required: true
     },
     categoria:{
         type: Schema.Types.ObjectId,
-        ref: 'Categorias',
+        ref: 'Categoria',
         required: true
     },
     cantidad:{

@@ -1,6 +1,6 @@
 require('dotenv').config()
 const { connectDB, desconectar } = require('./dataBase/config');
-const {pausa} = require('./helpers/inquirer');
+const {pausa} = require('./inquirer/inquirer');
 const { mainMenu } = require('./inquirer/menus');
 
 console.clear();

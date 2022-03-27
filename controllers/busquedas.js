@@ -1,8 +1,8 @@
 const {dataBaseFind} = require('../helpers/busquedas')
 const { headerBusquedasUsuarios } = require('../helpers/heders')
-const { input, pausa } = require('../helpers/inquirer')
+const { input, pausa } = require('../inquirer/inquirer')
 const Usuario = require('../models/usuarios')
-const { loging } = require('./registroUsuarios')
+const  loging  = require('../helpers/loging')
 
 const findName = async()=>{
     await buscar('nombre')
@@ -41,7 +41,7 @@ const findName = async()=>{
  }  
  
      if(parametro == 'allFind'){
-         if(await loging()){
+         if(await loging(['yellow'])){
          const data = await dataBaseFind(Usuario,'allFind');
          const data2 = await dataTabuladaG(data);
          headerBusquedasUsuarios();

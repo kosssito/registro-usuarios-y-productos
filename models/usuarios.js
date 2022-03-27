@@ -16,7 +16,13 @@ const UsuarioSchema = new Schema({
     numero:{
         type: String,
         required: [true, 'El nuemro es obligatorio']
+    },
+    estado:{
+        type: Boolean,
+        default: true,
+        required: true
     }
+
 },{
     timestamps: true,
     versionKey: false

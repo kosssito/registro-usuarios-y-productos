@@ -1,9 +1,9 @@
 const { headersMainMenu, headerRegistroUsuarios, headerBusquedasUsuarios, headerInventario } = require('../helpers/heders');
-const { crearMenu } = require('../helpers/inquirer');
-const {crearUsuarios, modificarUsuarios, borrarUsuarios,} = require("../controllers/registroUsuarios");
+const { crearMenu } = require('./inquirer');
+const {crearUsuarios, modificarUsuarios, borrarUsuarios} = require("../controllers/registroUsuarios");
 const { findName, findEmail, findNumero, findAll } = require('../controllers/busquedas');
-const { mostrarInventario, registrarProductos, crearCategoria } = require('../controllers/productos');
-
+const { mostrarInventario, registrarProducto, crearCategoria, borrarCategoria, modificarProducto, borrarProducto } = require('../controllers/productos');
+const loging = require('../helpers/loging');
 const mainMenu = async()=>{
 
     const menuOpciones = [
@@ -43,12 +43,16 @@ const menuInventario = async()=>{
 
   const menuOpciones = [
   ['Crear Catrgoria', crearCategoria],
-  ['Registrar Productos', registrarProductos],
+  ['Borrar Catrgoria', borrarCategoria],
+  ['Registrar Producto', registrarProducto],
+  ['Modificar Producto', modificarProducto],
+  ['Borrar Producto', borrarProducto],
   ['Mostrar Inventario', mostrarInventario]
   ]
-
-await crearMenu( menuOpciones, ['gray'], headerInventario );
-
+   dataLoging = await loging(['gray']);
+   if(dataLoging){
+     await crearMenu( menuOpciones, ['gray'], headerInventario, dataLoging );
+   }
 }
 
 module.exports = {

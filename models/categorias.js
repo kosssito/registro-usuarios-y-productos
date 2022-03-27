@@ -12,6 +12,10 @@ const CategoriaSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Usuario',
         required: true
+    },
+    estado: {
+        type: Boolean,
+        default: true
     }
 },
 {
