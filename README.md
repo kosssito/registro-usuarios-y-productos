@@ -4,6 +4,8 @@ Recuerde que deben de ejecutar ```npm install``` para recostruir los modulos de 
 Ejecutar ``node index.js`` para iniciar la aplicacion 
 
 1. La aplicacion cuenta con 3 opciones principales
+
+~~~
 ╔═════════════════════╗
     MENU PRINCIPAL
 ╚═════════════════════╝
@@ -12,9 +14,10 @@ Ejecutar ``node index.js`` para iniciar la aplicacion
   2. Buscar usuarios Base de datos
   3. Inventario
   0. Salir
-
+~~~
 2. En la opcion de registro de usuarios, se crear, modifica o elimina usuarios,
    se almacena en una base de datos de mongodb.
+~~~
 ╔══════════════════════╗
   REGISTRO DE USUARIOS
 ╚══════════════════════╝
@@ -23,8 +26,10 @@ Ejecutar ``node index.js`` para iniciar la aplicacion
   2. Modificar un usuario nuevo
   3. Borrar un usuario
   0. Salir
-
+~~~
 3. Busca usuarios en la base de datos en los diferentes filtros
+
+~~~
 ╔══════════════════════╗
   BUSQUEDA DE USUARIOS
 ╚══════════════════════╝
@@ -34,9 +39,10 @@ Ejecutar ``node index.js`` para iniciar la aplicacion
   3. Buscar por numero
   4. Mostrar usuarios registrados
   0. Salir
-
+~~~
 4. Seccion donde se crea, elimina categorias y productos, y se muestra todo el inventario,
    para entrar a esta seccion hay que pasar por una validacion de loging. Todo cambio echo en esa secion es guardado con el id del usuario logeado. 
+~~~
 ╔══════════════════════╗
        INVENTARIO
 ╚══════════════════════╝
@@ -48,3 +54,4 @@ Ejecutar ``node index.js`` para iniciar la aplicacion
   5. Borrar Producto
   6. Mostrar Inventario
   0. Salir
+  ~~~
